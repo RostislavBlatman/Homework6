@@ -3,7 +3,8 @@
  * Программа "Мой блокнот"
  * Предназначена для добавления, удаления, редактирования и вывода записей из массива заметок, созданных в процессе
  * работы программы.
- * Разбита на три класса: Main - основной класс, Logic - класс с логикой приложения, Test - класс-тестировщик.
+ * Разбита на три класса: Main - основной класс, InteractivePanel - интерактивная панель, Note - наш блокнотик,
+ * Notepad - класс с логикой приложения, Validator - класс-валидатор.
  * При запуске пользователю предоставляется выбор из 5 функций:
  * 1 - добавление записи ;
  * 2 - удаление записи   ;
@@ -21,10 +22,10 @@
  *
  */
 package main;
-import logic.Logic;
+import inter.InteractivePanel;
 public class Main {
     public static void main(String[] args) {
-        Logic a = new Logic();
-        a.logic();
+        InteractivePanel a = new InteractivePanel();
+        a.greeting();
     }
 }
