@@ -1,84 +1,77 @@
 package note;
 
-import inter.InteractivePanel;
+
 import validator.Validator;
 import java.util.Arrays;
-import java.util.Scanner;
-
-public class Notepad {
-
-        static Note note = new Note();
-        static String[] myNote = note.note;
-
-        public static void logic (int code) {
-            Scanner num = new Scanner(System.in);
-            switch (code){
-                case 1:
-
-                    System.out.print("Введите свою строку: ");
-                    String str =  num.next();
-                    myNote[myNote.length -1] = str ;
-                    myNote = Arrays.copyOf(myNote , myNote.length+1);
-                    System.out.println("символ " + myNote[myNote.length -2] + " добавлен в блокнот");
-                    System.out.println ("\n\n\n\n\n");
-                    InteractivePanel.greeting();
-                    break;
-                case 2:
-                    String [] noteNew = new String[myNote.length-1] ;
-                    System.out.println ("Выберите удаляемую запись и введите её номер ");
-                    for (int noteIndex = 0; noteIndex < myNote.length-1; noteIndex++) {
-                        System.out.println (noteIndex + ": " + myNote[noteIndex]);
-                    }
-                    int line = num.nextInt();
-                    Validator.index( line, myNote.length-1 );
-
-                    for (int currentLine = 0 ; currentLine < line ; currentLine++){
-                        noteNew[currentLine] = myNote[currentLine];
-                    }
-                    for (int currentLine = line+1 ; currentLine < myNote.length-1; currentLine++ ){
-                        noteNew[currentLine-1] = myNote[currentLine];
-                    }
-                    myNote = noteNew ;
-                    System.out.println ("Записи обновлены: ");
-                    for (int noteIndex = 0; noteIndex < myNote.length-1; noteIndex++) {
-                        System.out.println (noteIndex + ": " + myNote[noteIndex]);
-                    }
-                    System.out.println ("\n");
-                    InteractivePanel.greeting();
-                    break;
-                case 3:
-                    System.out.println("Какую запись вы бы хотели отредактировать?\n");
-                    for (int noteIndex = 0; noteIndex < myNote.length-1; noteIndex++) {
-                        System.out.println (noteIndex + ": " + myNote[noteIndex]);
-                    }
-                    line = num.nextInt();
-                    Validator.index( line, myNote.length-1 );
-                    System.out.println("Введите новую запись: ");
-                    str = num.next();
-                    myNote[line] = str ;
-                    System.out.println ("Записи обновлены: ");
-                    for (int noteIndex = 0; noteIndex < myNote.length-1; noteIndex++) {
-                        System.out.println (noteIndex + ": " + myNote[noteIndex]);
-                    }
-                    System.out.println ("\n");
-                    InteractivePanel.greeting();
-                    break;
-                case 4:
-                    Validator.empty( myNote );
-                    System.out.println ("Мой блокнот: ");
-                    for (int noteIndex = 0; noteIndex < myNote.length-1; noteIndex++) {
-                        System.out.println (noteIndex + ": " + myNote[noteIndex]);
-                    }
-                    System.out.println ("\n");
-                    InteractivePanel.greeting();
-                    break;
-                case 5:
-                    break;
 
 
-            }
+public class Notepad  {
 
+       public Note[] note = new Note[1];
+
+
+    public Notepad (){
+            init();
+    }
+
+    private void init() {
+
+            note[note.length-1] = new Note();
+
+    }
+
+    public void add(String str) {
+
+
+            note[note.length - 1].note = str;
+            note = Arrays.copyOf(note, note.length + 1);
+            note[note.length - 1] = new Note();
+            System.out.println("символ \"" + note[note.length - 2].note + "\" добавлен в блокнот");
+            System.out.println("\n\n\n\n\n");
+
+    }
+
+    public void delete(int line) {
+
+        Validator.index(line, note.length - 1);
+
+        if(note.length <= 1){
+            note = new Note[1];
+            init();
+            System.out.println("\n\n\nУпс, блокнот пуст\nПора в него что-нибудь добавить ;)\n\n\n");
+        }
+        else {
+        Note[] newNote = new Note[note.length - 1];
+        for (int currentLine = 0; currentLine < line; currentLine++) {
+            newNote[currentLine] = note[currentLine];
+        }
+        for (int currentLine = line + 1; currentLine < note.length - 1; currentLine++) {
+            newNote[currentLine - 1] = note[currentLine];
+        }
+        note = newNote;
+        init();
+        showAll();
+        }
+
+    }
+
+    public void edit(int line, String str) {
+
+        Validator.index(line, note.length - 1);
+        note[line].note = str;
+    }
+
+    public void showAll () {
+           if( Validator.empty(note)==1 ){}
+           else {
+               System.out.println("Мой блокнот: ");
+               for (int noteIndex = 0; noteIndex < note.length - 1; noteIndex++) {
+                   System.out.println(noteIndex + ": " + note[noteIndex].note);
+               }
+               System.out.println("\n\n\n");
+           }
         }
 
 
-}
+    }
+

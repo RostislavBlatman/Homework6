@@ -1,21 +1,25 @@
 package validator;
 
-import inter.InteractivePanel;
+import note.Note;
 
 public class Validator {
-    public static void index (int i, int k) {
-        if (i > k || i < 0) {
+    public static void index (int currentIndex, int maxIndex) {
+        if (currentIndex > maxIndex || currentIndex < 0) {
             throw new IndexOutOfBoundsException ("введён некорректный номер");
         }
     }
-        public static void empty ( String[] note ) {
-            if (note[0] == null) {
-                System.out.println("\n\n\nУпс, блокнот пуст\nПора в него что-нибудь добавить ;)\n\n\n");
-                InteractivePanel x = new InteractivePanel();
-                x.greeting();
+    public static int empty ( Note[] note ) {
 
-            }
+        if (note[0].note == null || note.length == 1) {
+
+            System.out.println("\n\n\nУпс, блокнот пуст\nПора в него что-нибудь добавить ;)\n\n\n");
+
+            return 1;
+
         }
+        else {return 0;}
+    }
+
 
     }
 
